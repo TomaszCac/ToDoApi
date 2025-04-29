@@ -1,6 +1,71 @@
-@ToDoApi_HostAddress = http://localhost:5062
+@ToDoApi_HostAddress = https://localhost:44350
 
-GET {{ToDoApi_HostAddress}}/weatherforecast/
-Accept: application/json
+//Set this variable for which record you want to make operations
+@Id = 3
+
+//Endpoint for showing all records from database
+GET {{ToDoApi_HostAddress}}/api/todo
+
+###
+
+
+//Endpoint for creating new record in database
+//Set json object of ToDo in body
+POST {{ToDoApi_HostAddress}}/api/todo
+Content-Type: application/json
+
+{
+    "id": 1,
+    "title": "Testing number 1",
+    "description": "Testing description",
+    "completePercent": 20,
+    "expiration": "2025-04-30T00:00:00"
+}
+
+
+###
+//Endpoint for searching for a specific record
+//Set in variable which record you want to modify
+GET {{ToDoApi_HostAddress}}/api/todo/{{Id}}
+
+###
+//Endpoint for deleting specific record
+//Set in variable which record you want to modify
+DELETE {{ToDoApi_HostAddress}}/api/todo/{{Id}}
+
+###
+//Endpoint for updating entire record
+//Set in variable which record you want to modify
+//Set json object of ToDo in body
+PUT {{ToDoApi_HostAddress}}/api/todo/{{Id}}
+Content-Type: application/json
+
+{
+    "id": 1,
+    "title": "Testing number 2",
+    "description": "Testing description",
+    "completePercent": 20,
+    "expiration": "2025-04-30T00:00:00"
+}
+
+###
+//Endpoint for updating only one element of record,
+//in this case setting completion percent to 100
+//Set in variable which record you want to modify
+PATCH {{ToDoApi_HostAddress}}/api/todo/{{Id}}/done
+
+###
+//Endpoint for manually changing percent of completion in record
+//Set in id variable which record you want to change and set integer in body
+PATCH {{ToDoApi_HostAddress}}/api/todo/{{Id}}/percent
+Content-Type: application/json
+
+25
+
+###
+//Endpoint for filtering records based on date,
+//You can filter it by today, tomorrow or one week
+//Apply specific keyword for variable when (today,tomorrow,week)
+GET {{ToDoApi_HostAddress}}/api/todo/incoming?when=week
 
 ###

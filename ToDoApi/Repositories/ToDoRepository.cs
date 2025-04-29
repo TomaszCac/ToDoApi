@@ -1,4 +1,5 @@
-﻿using ToDoApi.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ToDoApi.Data;
 using ToDoApi.Interfaces;
 using ToDoApi.Models;
 
@@ -88,10 +89,11 @@ namespace ToDoApi.Repositories
 
         public bool Update(ToDo toDo)
         {
-            var x = _context.ToDos.Where(b => b.Id ==  toDo.Id).FirstOrDefault();
+            var x = _context.ToDos.Where(b => b.Id ==  toDo.Id).AsNoTracking().FirstOrDefault();
             if (x != null)
             {
-                _context.Update(toDo);
+                x = toDo;
+                _context.Update(x);
                 return Save();
             }
             return false;
