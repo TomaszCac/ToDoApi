@@ -64,5 +64,11 @@ namespace ToDoApi.Controllers
         {
             return Ok(_todorepos.Delete(id));
         }
+        //PATCH api/<ToDoController>/5/done
+        [HttpPatch("{id}/done")]
+        public IActionResult Complete(int id)
+        {
+            return Ok(_todorepos.Complete(id));
+        }
     }
 }

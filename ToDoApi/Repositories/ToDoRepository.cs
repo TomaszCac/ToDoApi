@@ -13,6 +13,17 @@ namespace ToDoApi.Repositories
             _context = context;
         }
 
+        public bool Complete(int id)
+        {
+            var toDo = _context.ToDos.Where(b => b.Id == id).FirstOrDefault();
+            if (toDo != null)
+            {
+                toDo.CompletePercent = 100;
+                _context.ToDos.Update(toDo);
+            }
+            return Save();
+        }
+
         public bool Create(ToDo toDo)
         {
             toDo.Id = 0;
