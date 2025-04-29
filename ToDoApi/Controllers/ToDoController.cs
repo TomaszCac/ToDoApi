@@ -81,12 +81,17 @@ namespace ToDoApi.Controllers
         }
         // PATCH api/todo/5/percent
         // Updates single element in record based on id using value from request
-        // Request must have id and integer of percent
+        // Request must have id and integer of percent between 0 and 100
         [HttpPatch("{id}/percent")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult SetPercent(int id, [FromBody] int percent)
         {
+            if (percent > 100 || percent < 0)
+            {
+                return BadRequest("Percent must be between 0 and 100");
+            }
             if (_todorepos.SetPercent(id, percent))
             {
                 return NoContent();

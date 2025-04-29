@@ -13,7 +13,7 @@ namespace ToDoApi.Repositories
         {
             _context = context;
         }
-
+        // Marks specific record as completed by making it 100 percent complete
         public bool Complete(int id)
         {
             var toDo = _context.ToDos.Where(b => b.Id == id).FirstOrDefault();
@@ -53,6 +53,9 @@ namespace ToDoApi.Repositories
             return _context.ToDos.Where(t => t.Id == id).FirstOrDefault();
         }
 
+        // Gets records where they expire between certain time ranges
+        // Variable today specifies if function should look for between now and:
+        // today - today expiration date, tomorrow - tomorrow expiration day, week - 7 days of expiration day
         public ICollection<ToDo>? GetIncoming(string when)
         {
             var time = DateTime.Now;
@@ -68,13 +71,14 @@ namespace ToDoApi.Repositories
                     return null;
             }
         }
-
+        // Saves changes in the database
         public bool Save()
         {
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
 
+        // Changes percent of completion by requested amount
         public bool SetPercent(int id, int percent)
         {
             var todo = _context.ToDos.Where(b => b.Id == id).FirstOrDefault();
