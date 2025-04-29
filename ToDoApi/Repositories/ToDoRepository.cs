@@ -23,6 +23,22 @@ namespace ToDoApi.Repositories
             return _context.ToDos.Where(t => t.Id == id).FirstOrDefault();
         }
 
+        public ICollection<ToDo>? GetIncoming(string when)
+        {
+            var time = DateTime.Now;
+            switch (when)
+            {
+                case "today":
+                    return _context.ToDos.Where(t => time.Date.AddDays(1) > t.Expiration).ToList();
+                case "tomorrow":
+                    return _context.ToDos.Where(t => time.Date.AddDays(2) > t.Expiration).ToList();
+                case "week":
+                    return _context.ToDos.Where(t => time.Date.AddDays(7) > t.Expiration).ToList();
+                default:
+                    return null;
+            }
+        }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

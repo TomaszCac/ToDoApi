@@ -7,6 +7,7 @@ namespace ToDoApi.Interfaces
         public bool Save();
         public ICollection<ToDo> GetAll();
         public ToDo? GetById(int id);
+        public ICollection<ToDo>? GetIncoming(string when);
 
     }
 }

@@ -25,17 +25,23 @@ namespace ToDoApi.Controllers
 
         // GET api/<ToDoController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            return Ok(_todorepos.GetById(id));
         }
+        // GET api/<ToDoController>/incoming?when=
+        [HttpGet("incoming")]
+        public IActionResult Get([FromQuery]string when)
+        {
+            return Ok(_todorepos.GetIncoming(when));
+        }
+
 
         // POST api/<ToDoController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
-
         // PUT api/<ToDoController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
