@@ -89,10 +89,13 @@ namespace ToDoApi.Repositories
 
         public bool Update(ToDo toDo)
         {
-            var x = _context.ToDos.Where(b => b.Id ==  toDo.Id).AsNoTracking().FirstOrDefault();
+            var x = _context.ToDos.Where(b => b.Id ==  toDo.Id).FirstOrDefault();
             if (x != null)
             {
-                x = toDo;
+                x.Title = toDo.Title;
+                x.Description = toDo.Description;
+                x.Expiration = toDo.Expiration;
+                x.CompletePercent = toDo.CompletePercent;
                 _context.Update(x);
                 return Save();
             }
