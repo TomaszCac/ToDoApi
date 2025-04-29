@@ -13,6 +13,13 @@ namespace ToDoApi.Repositories
             _context = context;
         }
 
+        public bool Create(ToDo toDo)
+        {
+            toDo.Id = 0;
+            _context.Add(toDo);
+            return Save();
+        }
+
         public ICollection<ToDo> GetAll()
         {
             return _context.ToDos.ToList();

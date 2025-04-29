@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToDoApi.Interfaces;
+using ToDoApi.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,8 +40,9 @@ namespace ToDoApi.Controllers
 
         // POST api/<ToDoController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] ToDo toDo)
         {
+            return Ok(_todorepos.Create(toDo));
         }
         // PUT api/<ToDoController>/5
         [HttpPut("{id}")]
