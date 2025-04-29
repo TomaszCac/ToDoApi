@@ -20,8 +20,9 @@ namespace ToDoApi.Repositories
             {
                 toDo.CompletePercent = 100;
                 _context.ToDos.Update(toDo);
+                return Save();
             }
-            return Save();
+            return false;
         }
 
         public bool Create(ToDo toDo)
@@ -34,8 +35,11 @@ namespace ToDoApi.Repositories
         public bool Delete(int id)
         {
             var toDo = _context.ToDos.Where(b => b.Id == id).FirstOrDefault();
-            if (toDo != null) { _context.Remove(toDo); }
-            return Save();
+            if (toDo != null) { 
+                _context.Remove(toDo);
+                return Save();
+            }
+            return false;   
         }
 
         public ICollection<ToDo> GetAll()
@@ -73,15 +77,24 @@ namespace ToDoApi.Repositories
         public bool SetPercent(int id, int percent)
         {
             var todo = _context.ToDos.Where(b => b.Id == id).FirstOrDefault();
-            todo.CompletePercent = percent;
-            _context.Update(todo);
-            return Save();
+            if (todo != null)
+            {
+                todo.CompletePercent = percent;
+                _context.Update(todo);
+                return Save();
+            }
+            return false;
         }
 
         public bool Update(ToDo toDo)
         {
-            _context.Update(toDo);
-            return Save();
+            var x = _context.ToDos.Where(b => b.Id ==  toDo.Id).FirstOrDefault();
+            if (x != null)
+            {
+                _context.Update(toDo);
+                return Save();
+            }
+            return false;
         }
     }
 }
