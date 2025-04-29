@@ -20,6 +20,13 @@ namespace ToDoApi.Repositories
             return Save();
         }
 
+        public bool Delete(int id)
+        {
+            var toDo = _context.ToDos.Where(b => b.Id == id).FirstOrDefault();
+            if (toDo != null) { _context.Remove(toDo); }
+            return Save();
+        }
+
         public ICollection<ToDo> GetAll()
         {
             return _context.ToDos.ToList();

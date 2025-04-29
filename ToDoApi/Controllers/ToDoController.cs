@@ -60,8 +60,9 @@ namespace ToDoApi.Controllers
 
         // DELETE api/<ToDoController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            return Ok(_todorepos.Delete(id));
         }
     }
 }
