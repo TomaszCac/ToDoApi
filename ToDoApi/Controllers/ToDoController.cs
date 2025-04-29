@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ToDoApi.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,11 +9,18 @@ namespace ToDoApi.Controllers
     [ApiController]
     public class ToDoController : ControllerBase
     {
+        private readonly IToDoRepository _todorepos;
+
+        public ToDoController(IToDoRepository todorepos)
+        {
+            _todorepos = todorepos;
+        }
+
         // GET: api/<ToDoController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_todorepos.GetAll());
         }
 
         // GET api/<ToDoController>/5

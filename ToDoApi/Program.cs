@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using ToDoApi.Data;
+using ToDoApi.Interfaces;
+using ToDoApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
 
 builder.Services.AddDbContext<MariaDatabaseContext>(options =>
     options.UseMySql(
