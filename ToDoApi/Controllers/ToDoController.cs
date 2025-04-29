@@ -51,6 +51,12 @@ namespace ToDoApi.Controllers
             toDo.Id = id;
             return Ok(_todorepos.Update(toDo));
         }
+        // PATCH api/<ToDoController>/5/percent
+        [HttpPatch("{id}/percent")]
+        public IActionResult SetPercent(int id, [FromBody] int percent)
+        {
+            return Ok(_todorepos.SetPercent(id, percent));
+        }
 
         // DELETE api/<ToDoController>/5
         [HttpDelete("{id}")]

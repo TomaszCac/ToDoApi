@@ -52,6 +52,14 @@ namespace ToDoApi.Repositories
             return saved > 0 ? true : false;
         }
 
+        public bool SetPercent(int id, int percent)
+        {
+            var todo = _context.ToDos.Where(b => b.Id == id).FirstOrDefault();
+            todo.CompletePercent = percent;
+            _context.Update(todo);
+            return Save();
+        }
+
         public bool Update(ToDo toDo)
         {
             _context.Update(toDo);
