@@ -29,7 +29,7 @@ namespace ToDoApi.Repositories
         public bool Create(ToDo toDo)
         {
             toDo.Id = 0;
-            _context.Add(toDo);
+            _context.ToDos.Add(toDo);
             return Save();
         }
 
@@ -37,7 +37,7 @@ namespace ToDoApi.Repositories
         {
             var toDo = _context.ToDos.Where(b => b.Id == id).FirstOrDefault();
             if (toDo != null) { 
-                _context.Remove(toDo);
+                _context.ToDos.Remove(toDo);
                 return Save();
             }
             return false;   
@@ -85,7 +85,7 @@ namespace ToDoApi.Repositories
             if (todo != null)
             {
                 todo.CompletePercent = percent;
-                _context.Update(todo);
+                _context.ToDos.Update(todo);
                 return Save();
             }
             return false;
@@ -100,7 +100,7 @@ namespace ToDoApi.Repositories
                 x.Description = toDo.Description;
                 x.Expiration = toDo.Expiration;
                 x.CompletePercent = toDo.CompletePercent;
-                _context.Update(x);
+                _context.ToDos.Update(x);
                 return Save();
             }
             return false;
